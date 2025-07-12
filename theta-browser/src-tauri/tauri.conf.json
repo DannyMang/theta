@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Theta Browser",
+  "version": "0.1.0",
+  "identifier": "com.theta-browser.app",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Theta Browser",
+        "width": 1400,
+        "height": 900,
+        "minWidth": 1200,
+        "minHeight": 800,
+        "resizable": true,
+        "decorations": true,
+        "transparent": false,
+        "fullscreen": false,
+        "alwaysOnTop": false,
+        "center": true,
+        "webSecurity": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https: wss: ws:; img-src 'self' data: https:; font-src 'self' data:; media-src 'self' https:; worker-src 'self' blob:; frame-src 'self' https:;"
+    }
+  },
+  "plugins": {
+    "opener": {
+      "urls": [
+        {
+          "url": "https://**",
+          "canRequestToOpenUrl": true
+        }
+      ]
+    },
+    "fs": {
+      "scope": {
+        "allow": ["$APPDATA", "$APPDATA/**", "$HOME/.theta-browser/**"]
+      }
+    },
+    "http": {
+      "scope": {
+        "allow": ["https://**", "http://localhost:*", "http://127.0.0.1:*"]
+      }
+    },
+    "shell": {
+      "scope": {
+        "allow": ["python", "node", "git"]
+      }
+    },
+    "dialog": {
+      "scope": {
+        "allow": ["open", "save", "message", "ask", "confirm"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}
