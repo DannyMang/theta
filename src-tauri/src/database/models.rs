@@ -87,7 +87,6 @@ pub struct ContentAnalysis {
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
 pub struct UserData {
     pub id: Uuid,
-    pub user_id: Option<Uuid>,
     pub key: String,
     pub value: serde_json::Value,
     pub category: Option<String>,
@@ -133,7 +132,6 @@ pub struct CreateBookmark {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateUserData {
-    pub user_id: Option<Uuid>,
     pub key: String,
     pub value: serde_json::Value,
     pub category: Option<String>,
