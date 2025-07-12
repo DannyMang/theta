@@ -14,6 +14,14 @@ use state::AppState;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // Set default environment variables if not present
+    if std::env::var("DATABASE_URL").is_err() {
+        std::env::set_var("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/theta_browser");
+    }
+    if std::env::var("REDIS_URL").is_err() {
+        std::env::set_var("REDIS_URL", "redis://localhost:6379");
+    }
+    
     dotenv::dotenv().ok();
     env_logger::init();
 
@@ -26,7 +34,7 @@ pub fn run() {
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_process::init())
+
         .invoke_handler(tauri::generate_handler![
             commands::ai::analyze_content,
             commands::ai::generate_summary,
